@@ -1,0 +1,467 @@
+http://www.laptrinhtanbinh.com/course/1/Lap-trinh-voi-ngon-ngu-C
+http://www.laptrinhtanbinh.com/course/1/Lap-trinh-voi-ngon-ngu-C/25/3.1.-Gioi-thieu-ve-thu-vien-Qt
+
+
+//https://www.dll-files.com/download/1524579b894c9b99f42a695b86881254/apphelp.dll.html?c=UnJESXdWbWpHM2ZxckhQQlRZbitPZz09
+//http://minhhn.com/tong-hop/cac-phim-tat-thong-dung-trong-visual-studio/
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <iostream>
+#include <stdio.h>
+#include <time.h> // includes clock_t and CLOCKS_PER_SEC
+// Ctrl+K+C: Code > comment
+// Ctrl+K+U: comment > code
+// F9: Dat break point; Ctrl+Shift+F9: xoa toan bo break point da dat
+// F10: Debug vao chi tiet cua file; 
+// F5: chay chuong trinh
+// Ctrl+F5: Chay chuong trinh
+// F12: Xem dinh nghia cua 1 ham
+// Ctrl + Alt + F7: Rebuild
+using namespace cv; // for using opencv2.x
+using namespace std; // for texting with cout<<
+int main()
+{   
+	//=============================> Convert BGR Image to GRAY, HSV, YCrCb
+
+	/*cout<<"Beginning...."<<endl;
+    Mat src = imread("E:/AntonRTI/OpenCVcode/lena.png", 1);
+	imshow("Original", src);
+	Mat gray, hsv, ycrcb;
+	cvtColor(src, gray, CV_BGR2GRAY);
+	cvtColor(src, hsv, CV_BGR2HSV);
+	cvtColor(src,ycrcb, CV_BGR2YCrCb);
+	imshow("gray", gray);
+	imshow("hsv", hsv);
+	imshow("ycrcb", ycrcb);*/
+	
+	//=============================> Brightness and Contrast Change
+
+	//Mat dst = src.clone();
+	//double alpha = 1.2; // Contrast
+	//int beta = 200;  // brightness
+	//for (int i=0; i<src.rows; i++)
+	//	for(int j=0; j<src.cols; j ++)
+	//		for(int k=0; k<3; k++)
+	//			dst.at<Vec3b>(i,j)[k] = saturate_cast<uchar>(alpha*dst.at<Vec3b>(i,j)[k] + beta);
+	//imshow("Processed Image", dst);
+
+	// ==============================>Adaptive Threshold
+
+	//cout<<"Adaptive threshold"<<endl;
+	//Mat src = imread("E:/AntonRTI/OpenCVcode/lena.png", CV_LOAD_IMAGE_GRAYSCALE);
+	//imshow("Original", src);
+	//Mat dst;
+	//adaptiveThreshold(src, dst, 255, CV_ADAPTIVE_THRESH_MEAN_C, CV_THRESH_BINARY, 35, 10);// 35- window size; 5 - tham so bu tru
+	//imshow("Binary image with adaptive threshold", dst);
+	
+	// ==============================>Histogram equalization (can bang histogram) for GRAY
+
+	/*cout<<"Histogram equalization"<<endl;
+	Mat src = imread("E:/AntonRTI/OpenCVcode/lena.png", CV_LOAD_IMAGE_GRAYSCALE);
+	imshow("Original", src);
+	Mat dst;
+	equalizeHist(src, dst);
+	imshow("Equalized Image", dst);*/
+
+	//=================================> Histogram equalization for BGR
+
+	//cout<<"Histogram equalization"<<endl;
+	//Mat src = imread("E:/AntonRTI/OpenCVcode/lena.png", 1);
+	//imshow("Original", src);
+	//Mat hsv, dst;
+	//cvtColor(src, hsv,CV_BGR2HSV);
+	//vector<Mat> hsv_channels;
+	//// Tach hsv thanh 3 channels
+	//split(hsv, hsv_channels);
+	//// Equalization V channels
+	//equalizeHist(hsv_channels[2], hsv_channels[2]);
+	//// Merge channels
+	//merge(hsv_channels, hsv);
+	//// Convert HSV to RGB
+	//cvtColor(hsv, dst, CV_HSV2BGR);
+	//imshow("Equalization", dst);
+
+
+	//==================================> Histogram of RGB Image
+
+	//cout<<"Histogram equalization"<<endl;
+	//Mat src = imread("E:/AntonRTI/OpenCVcode/lena.png", 1);
+	//imshow("Original", src);
+
+	//vector<Mat> img_rgb;
+	//Mat img_r, img_g, img_b;
+
+	//int w = 400, h = 400;
+	//int size_hist = 255;
+	//float range[] = {0, 255};
+	//const float* hist_range = {range};
+
+	//split(src, img_rgb); // tach rgb thanh 03 channel
+	//calcHist(&img_rgb[0], 1, 0, Mat(), img_b, 1, &size_hist, &hist_range, true, false); //Tinh Hist cua input va save to hist array
+	//calcHist(&img_rgb[1], 1, 0, Mat(), img_g, 1, &size_hist, &hist_range, true, false);
+	//calcHist(&img_rgb[2], 1, 0, Mat(), img_r, 1, &size_hist, &hist_range, true, false);
+
+	//int bin = cvRound((double)w/size_hist);
+
+	//Mat disp_r(w, h, CV_8UC3, Scalar(255, 255, 255));
+	//Mat disp_g = disp_r.clone();
+	//Mat disp_b = disp_r.clone();
+
+	//normalize(img_b, img_b, 0, disp_b.rows, NORM_MINMAX, -1, Mat());
+	//normalize(img_g, img_g, 0, disp_g.rows, NORM_MINMAX, -1, Mat());
+	//normalize(img_r, img_r, 0, disp_r.rows, NORM_MINMAX, -1, Mat());
+
+	//for(int i=1; i<255; i++)
+	//{
+	//line(disp_r, Point(bin*(i),h), Point(bin*(i), h - cvRound(img_r.at<float>(i))), Scalar(0,0,255), 2, 8, 0);
+	//line(disp_g, Point(bin*(i),h), Point(bin*(i), h - cvRound(img_g.at<float>(i))), Scalar(0,255,0), 2, 8, 0);
+	//line(disp_b, Point(bin*(i),h), Point(bin*(i), h - cvRound(img_b.at<float>(i))), Scalar(255,0,0), 2, 8, 0);
+	//}
+
+	//imshow("Histogram of blue channel", disp_b);
+	//imshow("Histogram of green channel", disp_g);
+	//imshow("Histogram of red channel", disp_r);
+
+//========================>HISTOGRAM ALL IN ONE
+
+  //Mat src, dst;
+  ///// Load image
+  //src = imread( "E:/AntonRTI/OpenCVcode/lena.png", 1 );
+  //clock_t start, end;
+  //start=clock();
+  //if( !src.data )
+  //  { return -1; }
+
+  ///// Separate the image in 3 places ( B, G and R ) by alphabet index
+  //vector<Mat> bgr_planes;
+  //split( src, bgr_planes );
+
+  ///// Establish the number of bins
+  //int histSize = 256;
+
+  ///// Set the ranges ( for B,G,R) )
+  //float range[] = { 0, 256 } ;
+  //const float* histRange = { range };
+
+  //bool uniform = true; bool accumulate = false;
+
+  //Mat b_hist, g_hist, r_hist;
+
+  ///// Compute the histograms:
+  //calcHist( &bgr_planes[0], 1, 0, Mat(), b_hist, 1, &histSize, &histRange, uniform, accumulate );
+  //calcHist( &bgr_planes[1], 1, 0, Mat(), g_hist, 1, &histSize, &histRange, uniform, accumulate );
+  //calcHist( &bgr_planes[2], 1, 0, Mat(), r_hist, 1, &histSize, &histRange, uniform, accumulate );
+
+  //// Draw the histograms for B, G and R
+  //int hist_w = 512; int hist_h = 400;
+  //int bin_w = cvRound( (double) hist_w/histSize );
+
+  //Mat histImage( hist_h, hist_w, CV_8UC3, Scalar( 0,0,0) );
+
+  ///// Normalize the result to [ 0, histImage.rows ]
+  //normalize(b_hist, b_hist, 0, histImage.rows, NORM_MINMAX, -1, Mat() );
+  //normalize(g_hist, g_hist, 0, histImage.rows, NORM_MINMAX, -1, Mat() );
+  //normalize(r_hist, r_hist, 0, histImage.rows, NORM_MINMAX, -1, Mat() );
+
+  ///// Draw for each channel
+  //for( int i = 1; i < histSize; i++ )
+  //{
+  //    line( histImage, Point( bin_w*(i-1), hist_h - cvRound(b_hist.at<float>(i-1)) ) ,
+  //                     Point( bin_w*(i), hist_h - cvRound(b_hist.at<float>(i)) ),
+  //                     Scalar( 255, 0, 0), 2, 8, 0  );
+  //    line( histImage, Point( bin_w*(i-1), hist_h - cvRound(g_hist.at<float>(i-1)) ) ,
+  //                     Point( bin_w*(i), hist_h - cvRound(g_hist.at<float>(i)) ),
+  //                     Scalar( 0, 255, 0), 2, 8, 0  );
+  //    line( histImage, Point( bin_w*(i-1), hist_h - cvRound(r_hist.at<float>(i-1)) ) ,
+  //                     Point( bin_w*(i), hist_h - cvRound(r_hist.at<float>(i)) ),
+  //                     Scalar( 0, 0, 255), 2, 8, 0  );
+  //}
+  //end=clock();
+  //double duration_sec = double(end-start)/CLOCKS_PER_SEC;
+  //printf("Execution time: %.3fs\n", duration_sec);
+  /////C++
+  //double b=8, c=9;
+  //double a = b+c;
+  //printf("Total: %.3fs\n", a);
+  ///// Display
+  //namedWindow("calcHist Demo", CV_WINDOW_AUTOSIZE );
+  //imshow("calcHist Demo", histImage );
+
+
+
+	// ================================>Histogram equalization for GRAYSCALE IMAGE
+
+  ////Declare the source and destination images as well as the windows names:
+  //Mat src, dst;
+  //char* source_window = "Source image";
+  //char* equalized_window = "Equalized Image";
+  //// Load image
+  //src = imread ("E:/AntonRTI/OpenCVcode/lena.png", 1 );
+  //clock_t start, end;
+  //start = clock();
+  //if (!src.data )
+  //  { 
+  //   cout<<"No image Found "<<endl;
+  //   return -1;
+  //  }
+  //// Convert to grayscale (GR = 0.21 * Red + 0.72 * Green + 0.07 * Blue) or to HSV, YCbCr...
+  //cvtColor (src, src, CV_BGR2GRAY);
+  //// Apply Histogram Equalization
+  //equalizeHist(src, dst);
+  //// Display results
+  //namedWindow(source_window, CV_WINDOW_AUTOSIZE );
+  //namedWindow(equalized_window, CV_WINDOW_AUTOSIZE );
+  //imshow(source_window, src);
+  //imshow(equalized_window, dst);
+  //// Display running time
+  //end=clock();
+  //double duration_sec = double(end-start)/CLOCKS_PER_SEC;
+  //printf("Execution time: %.3fs\n", duration_sec);
+  /////C++
+  //double b=8, c=9;
+  //double a = b+c;
+  //printf("Total: %.3fs\n", a);
+
+//=====================> HISTOGRAM OF IMAGE GRAYSCALE
+
+	//Mat image = imread("E:/AntonRTI/OpenCVcode/lena.png", CV_LOAD_IMAGE_GRAYSCALE);
+ //   // Allcoate memory for no of pixels for each intensity value
+ //   int histogram[256];
+
+ //   // Initialize all intensity values to 0
+ //   for(int i = 0; i < 255; i++)
+ //   {
+ //       histogram[i] = 0;
+ //   }
+
+ //   // Calculate the number of pixels for each intensity values
+ //   for(int y = 0; y < image.rows; y++)  //image.rows = row size, image.cols = column size
+ //       for(int x = 0; x < image.cols; x++)
+ //           histogram[(int)image.at<uchar>(y,x)]++;
+ //   for(int i = 0; i < 256; i++)
+ //       cout<<histogram[i]<<" ";  //Display number of pixels for each intensity values
+
+ //   // Draw the histograms
+ //   int hist_w = 512; int hist_h = 400;
+ //   int bin_w = cvRound((double) hist_w/256);
+ //   Mat histImage(hist_h, hist_w, CV_8UC1, Scalar(255, 255, 255));
+
+ //   // Find the maximum intensity element from histogram
+ //   int max = histogram[0];
+ //   for(int i = 1; i < 256; i++){
+ //       if(max < histogram[i]){
+ //           max = histogram[i];
+ //       }
+ //   }
+
+ //   // Normalize the histogram between 0 and histImage.rows
+ //   for(int i = 0; i < 255; i++){
+ //       histogram[i] = ((double)histogram[i]/max)*histImage.rows;
+ //   }
+
+ //   // Draw the intensity line for histogram
+ //   for(int i = 0; i < 255; i++)
+ //   {
+ //       line(histImage, Point(bin_w*(i), hist_h),
+ //                             Point(bin_w*(i), hist_h - histogram[i]), 
+	//											Scalar(0,0,0), 1, 8, 0);
+ //   }
+
+ //   // Display histogram
+ //   namedWindow("Intensity Histogram", CV_WINDOW_AUTOSIZE);
+ //   imshow("Intensity Histogram", histImage);
+
+ //   namedWindow("Grayscale Image", CV_WINDOW_AUTOSIZE);
+ //   imshow("Grayscale Image", image);
+
+
+	//====================================>PHONG TO, THU NHO, XOAY IMAGE
+
+	//cout<<"Image resize and rotation!"<<endl;
+
+	//clock_t start, end;
+	//Mat src = imread("E:/AntonRTI/OpenCVcode/lena.png", 1);
+	//imshow("Grayscale image", src);
+
+	//start = clock();
+	//Mat dst = src.clone();
+	//Mat dst1 = src.clone();
+
+	//double angle = 45.0;
+	//double scale = 0.5;
+	//Point2f center(src.cols/2, src.rows/2); //Get a center point for running
+
+	//double I[2][3] = {1,0.5,0, 0,1,0};
+	//Mat mat_rot1(2,3,CV_64F, I);
+	//warpAffine(src, dst1, mat_rot1, src.size());  // TRUOT IMAGE
+
+	//Mat mat_rot = getRotationMatrix2D(center, angle, scale);  // create a affine matrix 2x2
+	//warpAffine(src, dst, mat_rot, src.size()); // Resize and rotation
+	//end = clock();
+
+	//double duration_sec = double(end-start)/CLOCKS_PER_SEC;
+	//printf("Execution time: %.3fs\n", duration_sec);
+
+	//imshow("Changed", dst);
+	//imshow("Anh truot", dst1);
+
+	//====================================> IMAGE FILTERING
+	//// Blur: M=(1/row.cols)*[1 1 ... 1; 1 ...; ...]; lam mo anh
+	//Mat src, blurimg, sobelimg, lap;
+	//src = imread("E:/AntonRTI/OpenCVcode/lena.png", 1);
+	//imshow("Original", src);
+	////Blur
+	//blur(src, blurimg, Size(5,5), Point(-1,-1), 4);
+	//imshow("Blured", blurimg);
+	//// Sobel filter
+	//Sobel(src, sobelimg, CV_32F, 1, 1, 5, 1, 0, 4);
+	//imshow("Sobel filter", sobelimg);
+	//// Laplace filter: M=[0 1 0; 1 -4 1; 0 1 0]
+	//Laplacian(src, lap, CV_32F, 1, 1, 0, 4);
+	//imshow("Laplace", lap);
+	//// medianBlur, gaussianBlur, pyrDown, pyrUp
+	//// Tu xay dung filter
+	//Mat dst;
+	//double m[3][3] = {-1/9, -1/9, 0, -1/9, 0, 1/9, 0, 1/9, 1/9};
+	////Mat M=cv::Mat(3, 3, CV_64F, m, Point(-1,-1), 128.0);
+	//filter2D(src, dst, src.depth(), 5, Point(-1,-1), 0, 4);
+	//imshow("filter2D", dst);
+
+	//=============> CANNY DETECTOR
+	// Canny: tim toi uu edge chinh xac and manh = Gauss + gradient + delete Non-maxima with threshold (upper and lower)
+	//Mat gray, dst1, dst2;
+	//gray = imread("E:/AntonRTI/OpenCVcode/lena.png", CV_LOAD_IMAGE_GRAYSCALE);
+	//GaussianBlur(gray, gray, Size(9,9), 2);
+	//imshow("Grayscale", gray);
+	//double t1=30, t2=200;
+	//Canny(gray, dst1, t1, t2, 3, false);
+	//t1=50; t2=100; //Bien anh if > upper and 
+	//Canny(gray, dst2, t1, t2, 3, false);
+	//imshow("Threshold 1", dst1);
+	//imshow("Threshold 2", dst2);
+	
+	//=============> LINE AND CIRCLE DETECTION BY HOUGH TRANSFORM
+
+	Mat src = imread("E:/AntonRTI/OpenCVcode/lena.png", 1);
+	Mat gray;
+	cvtColor(src, gray, CV_RGB2GRAY);
+	GaussianBlur(gray, gray, Size(9,9), 2, 2);
+
+	// Line detection
+	Mat canny;
+	Canny(gray, canny, 10, 70, 3, false); //Convert to binary image
+	imshow("Canny", canny);
+	vector<Vec4i> lines;
+	HoughLinesP(canny, lines, 1, CV_PI/180, 10, 70, 10);
+
+	// Circle detection
+	vector<Vec3f> circles;
+	//HoughCircles(gray, circles, CV_HOUGH_GRADIENT, 1, 100, 200, 0, 0);
+
+	// Ve line and circles len Image
+	for (int i=0; i<lines.size(); i++)
+	{
+		Vec4i l = lines[i];
+		line(src, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 2);
+	}
+
+	//for (int i=0; i<circles.size(); i++)
+	//{
+	//	Point center(cvRound(circles[i][0]), cvRound(circles[i][1])); // Tam
+	//	int radius = cvRound(circles[i][2]); //Ban kinh
+	//	circle(src, center, radius, Scalar(0,0,255), 2, 8, 0);
+
+	//
+	imshow("Result", src);
+    waitKey(0);
+    return 0;
+}
+
+//Ouput video file
+
+//	IplImage* frame = 0;
+//	int main(int argc, char* argv[])
+//	{
+//		//Ten file duoc dua ra bang tham so dau tien
+//		char* filename = argc == 2 ? argv[1]: "test.mov";
+//		printf("[i] file: %s\n", filename);
+//		//Window to see pictures
+//		cvNamedWindow("Demo Nasa video", CV_WINDOW_AUTOSIZE);
+//		//receive info about video file
+//		CvCapture* capture = cvCreateFileCapture(filename); //Nhan name file roi tra lai chi so len CvCapture
+//
+//		while(1){
+//			//receive next kadr
+//			frame = cvQueryFrame(capture); //Nhan va tra ve frames tu camera or file
+//			if(!frame){
+//				break;
+//			}
+//
+//			/* Dua vao phan xu ly cua minh*/
+//
+//			//To see kadr
+//			cvShowImage("Demo Nasa video", frame);
+//			char c = cvWaitKey(33);
+//			if(c==27){
+//				break; //if ESC to out of programm
+//			}
+//	}
+//	
+//		//Giai phong tai nguyen
+//		cvReleaseCapture(&capture);
+//		//Delete the window
+//		cvDestroyWindow("Demo Nasa video");
+//		return 0;
+//}
+
+//---------------------------------------------------------------------------------------
+//Pause the open video
+//CvCapture* capture = 0;
+//IplImage* frame = 0;
+////Pause function on the frame
+//void myTrackbarCallback(int pos){
+//	cvSetCaptureProperty(capture, CV_CAP_PROP_POS_FRAMES, pos);
+//}
+//int main(int argc, char* argv[])
+//{
+//		//Ten file duoc dua ra bang tham so dau tien
+//		char* filename = argc == 2 ? argv[1]: "test.mov";
+//		printf("[i] file: %s\n", filename);
+//		//Window to see pictures
+//		cvNamedWindow("original", CV_WINDOW_AUTOSIZE);
+//		//receive info about video file
+//		CvCapture* capture = cvCreateFileCapture(filename); //Nhan name file roi tra lai chi so len CvCapture
+//		//receive the number of frames
+//		double framesCount = cvGetCaptureProperty(capture, CV_CAP_PROP_FRAME_COUNT);
+//		printf("[i]count: %s\n", framesCount);
+//		int frames = (int)framesCount;
+//		int currentPosition=0;
+//		if(frames !=0){
+//			//Get the pause
+//			cvCreateTrackbar("Position","original", &currentPosition, frames, myTrackbarCallback);
+//		}
+//		while(1){
+//			//Receive the next frame
+//			frame = cvQueryFrame(capture);
+//			if(!frames){
+//				break;
+//			}
+//
+//			//Dua phan xu ly vao day!!!
+//
+//			//Show frames
+//			cvShowImage("original", frame);
+//			char c = cvWaitKey(33);
+//			if(c==27){
+//				break; //if ESC to end
+//			}
+//		}
+//		
+//		//Giai phong tai nguyen: to memory free
+//		cvReleaseCapture(&capture);
+//		//Delete the window
+//		cvDestroyWindow("original");
+//		return 0;
+//}
+//Videozakhvat (quay video)
